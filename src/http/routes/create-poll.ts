@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { prisma } from "../../lib/prisma";
-import { createPollBody } from "../../types/polls";
+import { createPollBody } from "../../types/polls-types";
 
 export async function createPoll(app: FastifyInstance) {
   app.post("/polls", async (request, reply) => {

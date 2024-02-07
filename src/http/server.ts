@@ -1,10 +1,11 @@
 import fastify from "fastify";
 import { fastifyCors } from "@fastify/cors";
 import dotenv from "dotenv";
-import { createPollBody } from "../types/polls";
+import { createPollBody } from "../types/polls-types";
 import { prisma } from "../lib/prisma";
 import { createPoll } from "./routes/create-poll";
 import { getPoll } from "./routes/get-poll";
+import { voteOnPoll } from "./routes/vote-on-poll";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.register(fastifyCors, {
 
 app.register(createPoll);
 app.register(getPoll);
+app.register(voteOnPoll);
 
 app.listen({ port: Number(process.env.PORT) }).then(() => {
   console.log("Server running on port " + process.env.PORT);
