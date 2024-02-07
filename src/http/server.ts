@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { createPollBody } from "../types/polls";
 import { prisma } from "../lib/prisma";
 import { createPoll } from "./routes/create-poll";
+import { getPoll } from "./routes/get-poll";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.register(fastifyCors, {
 });
 
 app.register(createPoll);
+app.register(getPoll);
 
 app.listen({ port: Number(process.env.PORT) }).then(() => {
   console.log("Server running on port " + process.env.PORT);
