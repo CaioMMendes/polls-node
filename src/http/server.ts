@@ -1,14 +1,13 @@
 import fastify from "fastify";
 import { fastifyCors } from "@fastify/cors";
 import dotenv from "dotenv";
-import { PrismaClient } from "@prisma/client";
 import { createPollBody } from "../types/polls";
+import { prisma } from "../lib/prisma";
+import { createPoll } from "./routes/create-poll";
 
 dotenv.config();
 
 const app = fastify();
-
-const prisma = new PrismaClient();
 
 app.register(fastifyCors, {
   origin: [
@@ -19,14 +18,7 @@ app.register(fastifyCors, {
   ],
 });
 
-app.post("/polls", async (request, reply) => {
-  const { title } = createPollBody.parse(request.body);
-
-  const poll = await prisma.poll.create({
-    data: { title },
-  });
-  return reply.status(201).send({ pollId: poll.id });
-});
+app.register(createPoll);
 
 app.listen({ port: Number(process.env.PORT) }).then(() => {
   console.log("Server running on port " + process.env.PORT);
