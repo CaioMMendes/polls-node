@@ -15,13 +15,30 @@ model Poll {
   title      String
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @default(now())
-  PoolOption PoolOption[]
+  PollOption PollOption[]
+  Vote       Vote[]
 }
 
-model PoolOption {
+model PollOption {
   id     String @id @default(uuid())
   title  String
   pollId String
 
-  poll Poll @relation(fields: [pollId], references: [id])
+  poll Poll   @relation(fields: [pollId], references: [id])
+  Vote Vote[]
+}
+
+model Vote {
+  id           Int      @id @default(autoincrement())
+  sessionId    String
+  pollOptionId String
+  pollId       String
+  createdAt    DateTime @default(now())
+
+  pollOption PollOption @relation(fields: [pollOptionId], references: [id])
+  poll       Poll       @relation(fields: [pollId], references: [id])
+
+  //esse unique serve para fazer com que só tenha uma combinação de sessionId com pollId
+  //para garantir que um usuario não vote duas vezes na mesma enquete
+  @@unique([sessionId, pollId])
 }
