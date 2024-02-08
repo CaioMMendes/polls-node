@@ -40,5 +40,6 @@ model Vote {
 
   //esse unique serve para fazer com que só tenha uma combinação de sessionId com pollId
   //para garantir que um usuario não vote duas vezes na mesma enquete
+  //o unique cria um indice com esses dados também
   @@unique([sessionId, pollId])
 }

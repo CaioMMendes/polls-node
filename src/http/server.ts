@@ -11,7 +11,6 @@ import cookie from "@fastify/cookie";
 dotenv.config();
 
 const app = fastify();
-
 app.register(cookie, {
   secret: process.env.COOKIE_SECRET, // for cookies signature
   hook: "onRequest", // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'

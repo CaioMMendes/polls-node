@@ -9,7 +9,7 @@ export async function createPoll(app: FastifyInstance) {
     const poll = await prisma.poll.create({
       data: {
         title,
-        PoolOption: {
+        PollOption: {
           createMany: {
             data: pollOptions.map((option) => {
               //se criar aqui dentro não precisa passar o id, como já ta relacionado ele já pega sozinho
