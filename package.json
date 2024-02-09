@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "prisma generate && tsup src",
+    "postinstall": "prisma generate",
     "start": "tsx src/http/server.ts",
     "dev": "tsx watch src/http/server.ts"
   },
