@@ -32,6 +32,13 @@ app.register(getPoll);
 app.register(voteOnPoll);
 app.register(pollResults);
 
-app.listen({ port: Number(process.env.PORT) }).then(() => {
-  console.log("Server running on port " + process.env.PORT);
-});
+app.listen(
+  { host: "0.0.0.0", port: Number(process.env.PORT) },
+  (err, address) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(`Server listening at ${address}`);
+  }
+);
